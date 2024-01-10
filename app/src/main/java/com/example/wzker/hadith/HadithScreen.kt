@@ -5,11 +5,14 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,8 +37,7 @@ enum class Books(@StringRes val resource: Int) {
     NASAI(R.string.nasai),
     ABU_DAUD(R.string.abu_daud),
     IBNU_MAJAH(R.string.ibnu_majah),
-    AHMAD(R.string.ahmad),
-    MALIK(R.string.malik),
+    MALIK(R.string.malik)
 }
 
 @Composable
@@ -58,17 +60,30 @@ fun HadithScreen(modifier: Modifier = Modifier) {
         )
 
         LazyVerticalGrid(
-            contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalArrangement = Arrangement.Center,
-            columns = GridCells.Fixed(2)
+            columns = GridCells.Fixed(2),
         ) {
-            items(Books.entries) {
-                HadithItem(item = it) { book ->
-                    viewModel.getHadith(book.name)
-                    showModelSheet = true
+            itemsIndexed(
+                Books.entries
+            ) { i, it ->
+                if (i < Books.entries.lastIndex) {
+                    HadithItem(
+                        item = it,
+
+                    ) { book ->
+                        viewModel.getHadith(book.name)
+                        showModelSheet = true
+                    }
                 }
             }
+        }
+        HadithItem(
+            item = Books.entries.last(),
+            modifier = modifier.fillMaxWidth()
+        ) { book ->
+            viewModel.getHadith(book.name)
+            showModelSheet = true
         }
         AnimatedVisibility(visible = showModelSheet) {
             HadithBottomSheet(

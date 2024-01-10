@@ -3,6 +3,7 @@ package com.example.wzker.hadith
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,11 +13,18 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
@@ -39,7 +47,6 @@ fun ShowContentOfHadith(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        CardComponent(text = text)
         Row(
             modifier = modifier
                 .padding(top = 16.dp)
@@ -47,7 +54,12 @@ fun ShowContentOfHadith(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary
+                ),
+
+
                 onClick = {
                     getAnotherHadith()
                 },
@@ -57,18 +69,25 @@ fun ShowContentOfHadith(
                     contentDescription = null,
                     modifier = modifier.size(24.dp)
                 )
+                Spacer(modifier = modifier.padding(horizontal = 8.dp))
+                Text("حديث اخر", style = MaterialTheme.typography.bodyMedium)
             }
-            IconButton(
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary
+                ),
                 onClick = {
                     shareHadith()
-                }
-            ) {
+                }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.share),
                     contentDescription = null,
                     modifier = modifier.size(24.dp)
                 )
+                Spacer(modifier = modifier.padding(horizontal = 8.dp))
+                Text("مشاركة", style = MaterialTheme.typography.bodyMedium)
             }
         }
+        CardComponent(text = text)
     }
 }

@@ -21,31 +21,27 @@
     <string name="quran">القران</string>
     <string name="ayaTadapor">تدبر اية</string>
     <string name="hadithEveryDay">حديث كل يوم</string>
-    <string name="muslim">مسلم</string>
     <string name="tafseer_mousar">التفسير الميسر</string>
     <string name="another_aya">اية اخري</string>
     <string name="choooseYourHadith">اختر كتابك المفضل الذي ترغب في البحث فيه</string>
     <string name="noInternet">لا يوجد اتصال باﻷنترنت عاود المحاولة مرة اخري</string>
-    <!-- Bukhari -->
-    <string name="bukhari">البخاري</string>
 
-    <!-- Tirmidzi -->
-    <string name="tirmidzi">الترمذي</string>
 
-    <!-- Nasai -->
-    <string name="nasai">النسائي</string>
+    <string name="muslim">صحيح مسلم</string>
 
-    <!-- Abu Daud -->
-    <string name="abu_daud">أبو داود</string>
+    <string name="bukhari">صحيح البخاري</string>
 
-    <!-- Ibnu Majah -->
-    <string name="ibnu_majah">ابن ماجه</string>
+    <string name="tirmidzi">سنن الترمذي</string>
 
-    <!-- Ahmad -->
+    <string name="nasai">سنن النسائي</string>
+
+    <string name="abu_daud"> سنن أبي داود</string>
+
+    <string name="ibnu_majah">سنن ابن ماجه</string>
+
     <string name="ahmad">أحمد</string>
 
-    <!-- Malik -->
-    <string name="malik">مالك</string>
+    <string name="malik">الموطأ للأمام مالك </string>
 
 
 </resources>
