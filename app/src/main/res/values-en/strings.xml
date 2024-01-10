@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="allCount">العدد الكلي</string>
+    <string name="currentCount">العدد الحالي</string>
+    <string name="azkar">أذكارك</string>
+    <string name="alazkar">الأذكار</string>
+    <string name="hadith">الحديث</string>
+    <string name="quran">القران</string>
+</resources>
