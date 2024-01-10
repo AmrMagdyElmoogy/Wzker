@@ -3,6 +3,16 @@
 
 Wzker is a comprehensive Islamic application that caters to your daily spiritual needs. It serves as a thoughtful reminder for daily Azkar, offers access to random Hadiths from a curated selection of books, and presents a daily Quranic verse accompanied by insightful Tafseer.
 
+## Screenshots 
+1. **Light Theme**
+
+
+   ![Light Theme App](https://github.com/AmrMagdyElmoogy/Wzker/blob/main/app/src/main/java/com/example/wzker/screenshots/light.png)
+
+2. **Dark Theme**
+
+
+   ![Light Theme App](https://github.com/AmrMagdyElmoogy/Wzker/blob/main/app/src/main/java/com/example/wzker/screenshots/dark.png)
 ## Architecture
 
 The project adopts the MVVM architecture, ensuring a clean separation of concerns. Each screen is meticulously organized into distinct folders containing Model, ViewModel, and UI components.
