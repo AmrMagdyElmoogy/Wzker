@@ -9,7 +9,11 @@ import androidx.activity.compose.setContent
 import androidx.core.app.ActivityCompat
 import com.example.wzker.azkar.WzkerApp
 import com.example.wzker.ui.theme.WzkerTheme
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

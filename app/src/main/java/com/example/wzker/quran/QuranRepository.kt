@@ -1,66 +1,65 @@
 package com.example.wzker.quran
 
 import android.util.Log
-import com.example.wzker.api.InternetException
-import com.example.wzker.api.QuranApi
-import com.example.wzker.api.QuranError
-import com.example.wzker.api.QuranHttpException
-import com.example.wzker.api.QuranResult
+import com.example.wzker.R
 import com.example.wzker.api.QuranService
-import com.example.wzker.api.QuranSuccess
+import com.example.wzker.util.ErrorNotException
+import com.example.wzker.util.ResultStates
+import com.example.wzker.util.RetrofitException
+import com.example.wzker.util.Success
+import com.example.wzker.util.IOException
 import retrofit2.HttpException
-import java.io.IOException
+import java.net.SocketTimeoutException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
 const val TAGs = "QuranRepo"
 
-class QuranRepository private constructor(
+@Singleton
+class QuranRepository @Inject constructor(
     private val api: QuranService
 ) {
-    companion object {
-        private var instance: QuranRepository? = null
 
-        fun initialize() {
-            if (instance == null) {
-                instance = QuranRepository(QuranApi.api)
-            }
-        }
-
-        fun getInstance(): QuranRepository =
-            instance ?: throw Throwable("You cannot get a nullable repostiory")
-    }
-
-    suspend fun getAyahFromAPI(surah: Int, ayah: Int): QuranResult {
+    suspend fun getAyahFromAPI(surah: Int, ayah: Int): ResultStates {
         return try {
             val result = api.getAyah(surah, ayah)
             if (result.isSuccessful) {
                 val data = result.body()!!.text
                 Log.d(TAGs, data)
-                QuranSuccess(data)
+                Success(data)
             } else {
                 Log.d(TAGs, result.errorBody().toString())
-                QuranError(result.errorBody().toString())
+                ErrorNotException(R.string.errorHappend)
             }
         } catch (e: HttpException) {
             Log.d(TAGs, e.toString())
-            QuranHttpException(e.toString())
-        } catch (e: IOException) {
+            RetrofitException(R.string.noInternet)
+        } catch (e: java.io.IOException) {
             Log.d(TAGs, e.toString())
-            InternetException("No internet connection")
+            IOException(R.string.noInternet)
+        } catch (e: SocketTimeoutException) {
+            IOException(R.string.noInternet)
         }
     }
 
-    suspend fun getTafseerOfAyahFromAPI(tafseer_id: Int, surah: Int, ayah: Int): QuranResult {
+    suspend fun getTafseerOfAyahFromAPI(tafseer_id: Int, surah: Int, ayah: Int): ResultStates {
         return try {
             val result = api.getTafseer(tafseer_id, surah, ayah)
             if (result.isSuccessful) {
                 val data = result.body()!!.text
-                QuranSuccess(data)
+                Success(data)
             } else {
-                QuranError(result.errorBody().toString())
+                ErrorNotException(R.string.errorHappend)
             }
         } catch (e: HttpException) {
-            QuranHttpException(e.toString())
+            Log.d(TAGs, e.toString())
+            RetrofitException(R.string.noInternet)
+        } catch (e: java.io.IOException) {
+            Log.d(TAGs, e.toString())
+            IOException(R.string.noInternet)
+        } catch (e: SocketTimeoutException) {
+            IOException(R.string.noInternet)
         }
     }
 }

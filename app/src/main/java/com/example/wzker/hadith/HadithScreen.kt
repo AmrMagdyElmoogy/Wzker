@@ -1,5 +1,7 @@
 package com.example.wzker.hadith
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wzker.R
 
@@ -40,9 +43,10 @@ enum class Books(@StringRes val resource: Int) {
     MALIK(R.string.malik)
 }
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun HadithScreen(modifier: Modifier = Modifier) {
-    val viewModel: HadithViewModel = viewModel()
+    val viewModel: HadithViewModel = hiltViewModel()
     var showModelSheet by remember {
         mutableStateOf(false)
     }

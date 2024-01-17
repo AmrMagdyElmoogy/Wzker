@@ -19,9 +19,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.wzker.R
+import com.example.wzker.util.Success
 
 @Composable
-fun QuranCardAya(modifier: Modifier = Modifier, state: QuranSuccessState) {
+fun QuranCardAya(modifier: Modifier = Modifier, state: Success<Quran>) {
     Card(
         modifier = modifier.padding(vertical = 16.dp),
         colors = CardDefaults.cardColors(
@@ -43,7 +44,7 @@ fun QuranCardAya(modifier: Modifier = Modifier, state: QuranSuccessState) {
                 )
 
                 Text(
-                    state.surah_name,
+                    state.data.surah_name,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = modifier
                         .paddingFromBaseline(bottom = 30.dp)
@@ -51,7 +52,7 @@ fun QuranCardAya(modifier: Modifier = Modifier, state: QuranSuccessState) {
                 )
             }
             Text(
-                state.surah.appendAyahSymbol(state.surah_number),
+                state.data.surah.appendAyahSymbol(state.data.surah_number),
                 style = MaterialTheme.typography.titleLarge
             )
         }

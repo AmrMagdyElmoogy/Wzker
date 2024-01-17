@@ -2,7 +2,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-   id("com.google.devtools.ksp") version "1.9.21-1.0.15"
+    id("com.google.devtools.ksp") version "1.9.21-1.0.15"
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -21,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {
@@ -74,6 +76,9 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.room)
     ksp(libs.room.compiler)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation)
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

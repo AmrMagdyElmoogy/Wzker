@@ -8,10 +8,13 @@ import kotlinx.coroutines.flow.Flow
 import com.example.wzker.db.ZekrModel
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AzkarRepository() {
-    private val db = ZekrDatabase.getInstance()
-
+@Singleton
+class AzkarRepository @Inject constructor(
+    private val db: ZekrDatabase
+) {
     fun getAllAzkar(): Flow<List<ZekrModel>> {
         return try {
             db.dao.getAllAzkar()

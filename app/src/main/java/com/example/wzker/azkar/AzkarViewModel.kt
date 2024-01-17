@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wzker.db.ZekrModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
@@ -18,9 +19,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AzkarViewModel : ViewModel() {
-    private val repo = AzkarRepository()
+@HiltViewModel
+class AzkarViewModel @Inject constructor(
+    private val repo: AzkarRepository
+) : ViewModel() {
     private val _askarList = repo.getAllAzkar().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),

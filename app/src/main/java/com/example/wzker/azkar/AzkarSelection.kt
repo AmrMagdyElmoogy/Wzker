@@ -21,16 +21,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wzker.R
+import javax.inject.Inject
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AzkarSelection(
     modifier: Modifier = Modifier,
-    viewModel: AzkarViewModel = viewModel(),
 ) {
+    val viewModel: AzkarViewModel = hiltViewModel()
     val data by viewModel.askar.collectAsStateWithLifecycle()
 
     LazyRow(

@@ -25,6 +25,7 @@
     <string name="another_aya">اية اخري</string>
     <string name="choooseYourHadith">اختر كتابك المفضل الذي ترغب في البحث فيه</string>
     <string name="noInternet">لا يوجد اتصال باﻷنترنت عاود المحاولة مرة اخري</string>
+    <string name="errorHappend">حدث خطأ حاول مرة اخري</string>
 
 
     <string name="muslim">صحيح مسلم</string>
@@ -42,6 +43,8 @@
     <string name="ahmad">أحمد</string>
 
     <string name="malik">الموطأ للأمام مالك </string>
+    <string name="share">مشاركة</string>
+    <string name="anotherHadith">حديث اخر</string>
 
 
 </resources>

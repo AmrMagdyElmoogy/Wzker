@@ -16,6 +16,8 @@ moshi = "1.14.0"
 lifecycle-compose = "2.6.2"
 lottieVersion = "6.3.0"
 room_version = "2.6.1"
+hilt_version = "2.48"
+hilt_naviation = "1.1.0"
 
 
 [libraries]
@@ -45,7 +47,9 @@ lottie = { group = "com.airbnb.android", name = "lottie-compose", version.ref = 
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
 room = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
-
+hilt = {group = "com.google.dagger", name = "hilt-android", version.ref= "hilt_version"}
+hilt-compiler = {group = "com.google.dagger",name = "hilt-android-compiler",version.ref = "hilt_version"}
+hilt-navigation = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt_naviation"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

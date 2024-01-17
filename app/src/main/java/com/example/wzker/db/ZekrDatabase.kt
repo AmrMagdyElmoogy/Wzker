@@ -11,19 +11,6 @@ import com.example.wzker.R
 
 @Database(entities = [ZekrModel::class], version = 1)
 abstract class ZekrDatabase : RoomDatabase() {
-    companion object {
-        private var instance: ZekrDatabase? = null
-        fun initialize(context: Context) {
-            if (instance == null) {
-                instance = Room.databaseBuilder(context, ZekrDatabase::class.java, "AskarDatabase")
-                    .addCallback(callbacks).fallbackToDestructiveMigration().build()
-            }
-        }
-
-        fun getInstance(): ZekrDatabase =
-            instance ?: throw (Throwable("Database isn't initialized yet!"))
-    }
-
     object callbacks : Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)

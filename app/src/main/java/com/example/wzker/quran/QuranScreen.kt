@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
@@ -23,14 +24,18 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wzker.R
 import com.example.wzker.components.ErrorComponent
+import com.example.wzker.util.ErrorNotException
+import com.example.wzker.util.IOException
+import com.example.wzker.util.Loading
+import com.example.wzker.util.RetrofitException
+import com.example.wzker.util.Success
 import java.text.NumberFormat
 import java.util.Locale
 
 @Composable
 fun QuranScreen(modifier: Modifier = Modifier) {
-    val viewModel: QuranViewModel = viewModel()
+    val viewModel: QuranViewModel = hiltViewModel()
     val uiState by viewModel.quranUiState.collectAsStateWithLifecycle()
-
     val compositionOfLoading by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(
             R.raw.loading
@@ -39,43 +44,42 @@ fun QuranScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 30.dp)
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-//        QuranSearchBar() {}
         when (uiState.state) {
-            is QuranErrorState -> {
-                val error = uiState.state as QuranErrorState
+            is ErrorNotException -> {
+                val error = uiState.state as ErrorNotException
                 ErrorComponent(message = error.message)
             }
 
-            is QuranExceptionState -> {
-                val error = uiState.state as QuranExceptionState
+            is IOException -> {
+                val error = uiState.state as IOException
                 ErrorComponent(message = error.message)
 
             }
 
-            QuranInitializationState -> {}
-            QuranLoadingState -> {
+            Loading -> {
                 LottieAnimation(
                     composition = compositionOfLoading,
-                    restartOnPlay = true
+                    restartOnPlay = true,
+                    iterations = 10,
                 )
             }
 
-            is QuranSuccessState -> {
-                val successState = uiState.state as QuranSuccessState
+            is Success<*> -> {
+                val successState = uiState.state as Success<Quran>
                 QuranCardAya(state = successState)
-                QuranCardTafseer(tafseer = successState.tafseer)
+                QuranCardTafseer(tafseer = successState.data.tafseer)
 
             }
 
-            QuranInternetLost -> {
-                ErrorComponent(message = stringResource(id = R.string.noInternet))
-
+            is RetrofitException -> {
+                ErrorComponent(message = (uiState.state as RetrofitException).message)
             }
+
+            else -> {}
         }
         ElevatedButton(
             colors = ButtonDefaults.elevatedButtonColors(

@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
@@ -22,7 +23,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wzker.R
 
 @Composable
-fun ErrorComponent(message: String, modifier: Modifier = Modifier) {
+fun ErrorComponent(message: Int, modifier: Modifier = Modifier) {
     val compositionOfError by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(
             R.raw.error
@@ -37,7 +38,7 @@ fun ErrorComponent(message: String, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            message,
+            stringResource(message),
             style = MaterialTheme.typography.bodyMedium.copy(
                 textAlign = TextAlign.Center
             )

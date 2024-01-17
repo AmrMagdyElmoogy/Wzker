@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.wzker.R
@@ -39,7 +40,6 @@ fun ShowContentOfHadith(
     shareHadith: () -> Unit,
     getAnotherHadith: () -> Unit
 ) {
-    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -56,10 +56,9 @@ fun ShowContentOfHadith(
         ) {
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary,
                 ),
-
-
                 onClick = {
                     getAnotherHadith()
                 },
@@ -70,11 +69,15 @@ fun ShowContentOfHadith(
                     modifier = modifier.size(24.dp)
                 )
                 Spacer(modifier = modifier.padding(horizontal = 8.dp))
-                Text("حديث اخر", style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    stringResource(R.string.anotherHadith),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary,
                 ),
                 onClick = {
                     shareHadith()
@@ -85,7 +88,7 @@ fun ShowContentOfHadith(
                     modifier = modifier.size(24.dp)
                 )
                 Spacer(modifier = modifier.padding(horizontal = 8.dp))
-                Text("مشاركة", style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.share), style = MaterialTheme.typography.bodyMedium)
             }
         }
         CardComponent(text = text)

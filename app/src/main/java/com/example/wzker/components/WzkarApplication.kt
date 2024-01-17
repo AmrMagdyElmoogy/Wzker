@@ -1,15 +1,13 @@
 package com.example.wzker.components
 
-import android.app.AlarmManager
 import android.app.Application
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
-import com.example.wzker.db.ZekrDatabase
-import com.example.wzker.hadith.HadithRepository
 import com.example.wzker.notification.NotificationJobService
-import com.example.wzker.quran.QuranRepository
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class WzkarApplication : Application() {
     override fun onCreate() {
         super.onCreate()
@@ -22,8 +20,5 @@ class WzkarApplication : Application() {
         val jobScheduler =
             applicationContext.getSystemService(JobScheduler::class.java) as JobScheduler
         jobScheduler.schedule(jobInfo)
-        ZekrDatabase.initialize(applicationContext)
-        HadithRepository.initialize()
-        QuranRepository.initialize()
     }
 }

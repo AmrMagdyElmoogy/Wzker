@@ -14,14 +14,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wzker.R
 import com.example.wzker.components.ErrorComponent
+import com.example.wzker.util.ErrorNotException
+import com.example.wzker.util.IOException
+import com.example.wzker.util.Loading
+import com.example.wzker.util.RetrofitException
+import com.example.wzker.util.Success
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,14 +36,12 @@ fun HadithBottomSheet(
     anotherHadith: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState()
-    val viewModel: HadithViewModel = viewModel()
+    val viewModel: HadithViewModel = hiltViewModel()
     val uiState by viewModel.hadithUiState.collectAsStateWithLifecycle()
     val compositionLoading by
     rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.loading))
-    val compositionError by
     rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.error))
     val context = LocalContext.current
-    val progressError by animateLottieCompositionAsState(composition = compositionError)
 
     ModalBottomSheet(
         sheetState = sheetState,
@@ -51,32 +54,35 @@ fun HadithBottomSheet(
         }) {
 
         when (uiState.state) {
-            is HadithErrorState -> {
-                ErrorComponent(message = (uiState.state as HadithErrorState).message)
+            is ErrorNotException -> {
+                ErrorComponent(message = (uiState.state as ErrorNotException).message)
             }
 
-            is HadithExceptionState -> {
+            is IOException -> {
+                ErrorComponent(message = (uiState.state as IOException).message)
 
             }
 
-            HadithInitializationState -> {
-            }
-
-            HadithLoadingState -> {
+            Loading -> {
                 LottieAnimation(
                     composition = compositionLoading,
                     restartOnPlay = true,
-                    iterations = 5,
+                    iterations = 10,
                 )
             }
 
-            is HadithSuccessState -> {
-                val hadithState = uiState.state as HadithSuccessState
+            is RetrofitException -> {
+                ErrorComponent(message = (uiState.state as RetrofitException).message)
+
+            }
+
+            is Success<*> -> {
+                val hadithState = uiState.state as Success<*>
                 ShowContentOfHadith(
-                    text = hadithState.hadith,
+                    text = hadithState.data as String,
                     shareHadith = {
                         val intent = Intent(Intent.ACTION_SEND).apply {
-                            putExtra(Intent.EXTRA_TEXT, hadithState.hadith)
+                            putExtra(Intent.EXTRA_TEXT, hadithState.data)
                             type = "text/plain"
                         }
                         startActivity(context, intent, Bundle())
@@ -86,6 +92,8 @@ fun HadithBottomSheet(
                     },
                 )
             }
+
+            else -> {}
         }
 
     }

@@ -13,8 +13,3 @@ interface HadithService {
        @Path("number") number: Int
     ): Response<HadithResponse>
 }
-
-sealed class HadithResult
-data class HadithSuccess(val hadith: String) : HadithResult()
-data class HadithError(val message: String) : HadithResult()
-data class HadithException(val message: String) : HadithResult()

@@ -21,9 +21,3 @@ interface QuranService {
         @Path("ayah_number") ayah: Int,
     ): Response<TafseerResponse>
 }
-
-sealed class QuranResult
-data class QuranSuccess(val surah: String) : QuranResult()
-data class QuranError(val message: String) : QuranResult()
-data class QuranHttpException(val message: String) : QuranResult()
-data class InternetException(val message: String) : QuranResult()
